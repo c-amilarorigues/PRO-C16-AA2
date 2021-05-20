@@ -61,7 +61,7 @@ function setup() {
   invisibleGround = createSprite(200,190,400,10);
   invisibleGround.visible = false;
   
-  //create Obstacle and Cloud Groups
+  //criar grupos de obstáculos e nuvens
   obstaclesGroup = createGroup();
   cloudsGroup = createGroup();
   
@@ -77,7 +77,7 @@ function setup() {
 function draw() {
   
   background(180);
-  //displaying score
+  //exibir pontuação
   text("Score: "+ score, 500,50);
   
   console.log("this is ",gameState)
@@ -86,27 +86,27 @@ function draw() {
   if(gameState === PLAY){
     gameOver.visible = false
     restart.visible = false
-    //move the ground
+    //mover o solo
     ground.velocityX = -4;
-    //scoring
+    //pontuação
     score = score + Math.round(frameCount/60);
     
     if (ground.x < 0){
       ground.x = ground.width/2;
     }
     
-    //jump when the space key is pressed
+    //pular quando a tecla de espaço for pressionada
     if(keyDown("space")&& trex.y >= 100) {
         trex.velocityY = -12;
     }
     
-    //add gravity
+    //adicione gravidade
     trex.velocityY = trex.velocityY + 0.8
   
-    //spawn the clouds
+    //gerar as nuvens
     spawnClouds();
   
-    //spawn obstacles on the ground
+    //gerar obstáculos no solo
     spawnObstacles();
     
     if(obstaclesGroup.isTouching(trex)){
@@ -121,10 +121,10 @@ function draw() {
       ground.velocityX = 0;
       trex.velocityY = 0
      
-      //change the trex animation
+      //mudar a animação do trex
       trex.changeAnimation("collided", trex_collided);
      
-      //set lifetime of the game objects so that they are never destroyed
+      //definir a vida útil dos objetos do jogo para que nunca sejam destruídos
     obstaclesGroup.setLifetimeEach(-1);
     cloudsGroup.setLifetimeEach(-1);
      
@@ -133,7 +133,7 @@ function draw() {
    }
   
  
-  //stop trex from falling down
+  //impedir que o trex caia
   trex.collide(invisibleGround);
   
   
@@ -146,7 +146,7 @@ function spawnObstacles(){
    var obstacle = createSprite(400,165,10,40);
    obstacle.velocityX = -6;
    
-    //generate random obstacles
+    //gerar obstáculos aleatórios
     var rand = Math.round(random(1,6));
     switch(rand) {
       case 1: obstacle.addImage(obstacle1);
@@ -164,17 +164,17 @@ function spawnObstacles(){
       default: break;
     }
    
-    //assign scale and lifetime to the obstacle           
+    //atribuir escala e vida útil ao obstáculo           
     obstacle.scale = 0.5;
     obstacle.lifetime = 300;
    
-   //add each obstacle to the group
+   //adicione cada obstáculo ao grupo
     obstaclesGroup.add(obstacle);
  }
 }
 
 function spawnClouds() {
-  //write code here to spawn the clouds
+  //escreva o código aqui para gerar as nuvens
   if (frameCount % 60 === 0) {
      cloud = createSprite(600,100,40,10);
     cloud.y = Math.round(random(10,60));
@@ -182,14 +182,14 @@ function spawnClouds() {
     cloud.scale = 0.5;
     cloud.velocityX = -3;
     
-     //assign lifetime to the variable
+     //atribuir tempo de vida à variável
     cloud.lifetime = 134;
     
-    //adjust the depth
+    //ajustar a profundidade
     cloud.depth = trex.depth;
     trex.depth = trex.depth + 1;
     
-    //adding cloud to the group
+    //adicionando nuvem ao grupo
    cloudsGroup.add(cloud);
     }
 }
